@@ -83,13 +83,14 @@ function Homepage() {
         >
           <Grid item sx={{ marginLeft: 'auto', marginTop: 2, marginRight: 2 }}>
             <Link href="/createblog">
-              <Button variant="contained">Post Blog</Button>
+              <Button variant="contained">Create Blog</Button>
             </Link>
           </Grid>
+
           <Grid item sx={{ marginTop: 2, marginRight: 2 }}>
-            <Link href="/blogs">
-              <Button variant="contained">View Blogs</Button>
-            </Link>
+            <Button variant="contained" onClick={() => signOut()}>
+              Sign out
+            </Button>
           </Grid>
         </Grid>
       )}
@@ -102,26 +103,10 @@ function Homepage() {
         style={{ paddingBottom: '2.5rem' }}
       >
         <Grid item>
-          <h1>Welcome </h1>
+          <h1>Blogs </h1>
         </Grid>
       </Grid>
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        style={{ paddingBottom: '2.5rem' }}
-      >
-        <Grid item>
-          <Button
-            onClick={onClickIDB}
-            variant="outlined"
-            disabled={disableButton}
-          >
-            Initialize Database
-          </Button>
-        </Grid>
-      </Grid>
+
       <Grid
         container
         direction="column"
@@ -168,10 +153,10 @@ function Homepage() {
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req })
 
-  if (session) {
+  if (!session) {
     return {
       redirect: {
-        destination: '/blogs',
+        destination: '/',
         permanent: false,
       },
     }
