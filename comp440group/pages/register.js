@@ -1,4 +1,4 @@
-import { getSession, signIn } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import TextField from '@mui/material/TextField'
 import * as React from 'react'

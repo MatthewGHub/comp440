@@ -1,10 +1,9 @@
 import NextAuth from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-
+import Providers from 'next-auth/providers'
 import connectDB from '../../../lib/db'
-
-import { signOut } from 'next-auth/react'
 import bcrypt from 'bcrypt'
+
+import { signOut } from 'next-auth/client'
 import crypto from 'crypto'
 
 const validateEmail = (email) => {
@@ -25,9 +24,34 @@ const validatePassword = (password) => {
   }
 }
 
+const loginUser = async ({ password, user }) => {
+  // const isMatch = await bcrypt.compare(password, user.password)
+  // if (!isMatch) {
+  //   throw new Error('Password Incorrect.')
+  // }
+
+  return user
+}
+
+const registerUser = async ({ newUser }) => {
+  // const hashPass = await bcrypt.hash(newUser.password, 12)
+
+  const query = `INSERT into users (username, firstName, lastName, email, password) values ('${newUser.username}', '${newUser.firstName}', '${newUser.lastName}', '${newUser.email}', '${newUser.password}')`
+  const data = await connectDB.query(query)
+  connectDB.end()
+
+  newUser.password = ''
+
+  if (data) {
+    return newUser
+  } else {
+    throw new Error('Error.')
+  }
+}
+
 export default NextAuth({
   session: {
-    strategy: 'jwt',
+    jwt: true,
   },
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
@@ -40,7 +64,7 @@ export default NextAuth({
     // decode: async ({ secret, token, maxAge }) => {},
   },
   providers: [
-    CredentialsProvider({
+    Providers.Credentials({
       name: 'Credentials',
       async authorize(credentials) {
         if (credentials.type === 'login') {
@@ -130,47 +154,22 @@ export default NextAuth({
   // SQL or MongoDB database (or leave empty)
   database: process.env.DATABASE_URL,
   callbacks: {
-    session: async (session) => {
-      const query = `SELECT * FROM users WHERE email='${session.token.email}'`
+    session: async (session, user) => {
+      const query = `SELECT * FROM users WHERE email='${session.user.email}'`
       const data = await connectDB.query(query)
       connectDB.end()
 
-      let user = {}
+      let user23 = {}
       if (data.length > 0) {
-        user.username = data[0]['username']
-        user.firstName = data[0]['firstName']
-        user.lastName = data[0]['lastName']
-        user.email = data[0]['email']
+        user23.username = data[0]['username']
+        user23.firstName = data[0]['firstName']
+        user23.lastName = data[0]['lastName']
+        user23.email = data[0]['email']
       }
 
-      session.user = user
+      session.user = user23
 
       return Promise.resolve(session)
     },
   },
 })
-
-const loginUser = async ({ password, user }) => {
-  // const isMatch = await bcrypt.compare(password, user.password)
-  // if (!isMatch) {
-  //   throw new Error('Password Incorrect.')
-  // }
-
-  return user
-}
-
-const registerUser = async ({ newUser }) => {
-  // const hashPass = await bcrypt.hash(newUser.password, 12)
-
-  const query = `INSERT into users (username, firstName, lastName, email, password) values ('${newUser.username}', '${newUser.firstName}', '${newUser.lastName}', '${newUser.email}', '${newUser.password}')`
-  const data = await connectDB.query(query)
-  connectDB.end()
-
-  newUser.password = ''
-
-  if (data) {
-    return newUser
-  } else {
-    throw new Error('Error.')
-  }
-}

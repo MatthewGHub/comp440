@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react'
+import { getSession } from 'next-auth/client'
 const Runner = require('run-my-sql-file')
 import path from 'path'
 

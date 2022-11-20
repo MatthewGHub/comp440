@@ -1,4 +1,4 @@
-import { getSession, signIn } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import TextField from '@mui/material/TextField'
 import * as React from 'react'
@@ -215,12 +215,12 @@ export default function Employees({ session }) {
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req })
 
-  const { query } = context
+  // const { query } = context
 
   if (session) {
     return {
       redirect: {
-        destination: '/homepage',
+        destination: '/blogs',
         permanent: false,
       },
     }

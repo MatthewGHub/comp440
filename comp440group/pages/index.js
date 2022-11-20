@@ -1,4 +1,4 @@
-import { getSession, signOut, useSession } from 'next-auth/react'
+import { getSession, signOut, useSession } from 'next-auth/client'
 import React from 'react'
 import { Grid, Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
