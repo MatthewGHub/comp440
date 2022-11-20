@@ -148,7 +148,7 @@ function Homepage({ data, user }) {
         <Grid item>
           <h1>Blogs </h1>
         </Grid>
-        {data23.reverse().map((e, i) => {
+        {data23.map((e, i) => {
           return (
             <Grid item key={i} sx={{ m: 1 }}>
               <Box sx={{ width: 700, border: 1 }}>
@@ -286,7 +286,7 @@ function Homepage({ data, user }) {
                     <Typography variant="h4" sx={{ ml: 3 }}>
                       Comments
                     </Typography>
-                    {comments23.reverse().map((obj, k) => {
+                    {comments23.map((obj, k) => {
                       if (obj.blogid === e.blogid) {
                         return (
                           <Box sx={{ width: 600, ml: 3, mb: 3, border: 1 }}>
