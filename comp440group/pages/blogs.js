@@ -13,9 +13,12 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
+import { useRouter } from 'next/router'
 
 function Homepage({ data, user }) {
   const theme = useTheme()
+  const router = useRouter()
+
   // const { data: session, status } = useSession()
 
   const [goodAlert, setGoodAlert] = React.useState('')
@@ -42,7 +45,7 @@ function Homepage({ data, user }) {
     setUser23(user1)
     setData23(data1)
     setComments23(data.comments)
-  }, [])
+  }, [router])
 
   const onClick = async (e) => {
     const sentiment = e.sentiment
@@ -70,11 +73,14 @@ function Homepage({ data, user }) {
       setLoading(false)
       setDisableButton(false)
       setGoodAlert(true)
-      await new Promise(() => {
-        setTimeout(() => {
-          setGoodAlert(false)
-        }, 3500)
-      })
+      router.reload('/blogs')
+
+      // await new Promise(() => {
+      //   setTimeout(() => {
+      //     setGoodAlert(false)
+      //     router.reload('/blogs')
+      //   }, 3500)
+      // })
     } else {
       setLoading(false)
       setDisableButton(false)
