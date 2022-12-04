@@ -14,6 +14,9 @@ async function handler(req, res) {
   }
 
   let body = JSON.parse(req.body)
+  body.subject = body.subject.replace(/'/g, "\\'")
+  body.description = body.description.replace(/'/g, "\\'")
+
   const date = new Date()
   const [month, day, year] = [
     date.getMonth() + 1,

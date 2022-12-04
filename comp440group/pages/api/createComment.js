@@ -16,6 +16,7 @@ async function handler(req, res) {
   let body = JSON.parse(req.body)
   console.log(session)
   console.log(body)
+  body.description = body.description.replace(/'/g, "\\'")
 
   // check if comment wrote blog
 
