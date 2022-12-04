@@ -77,7 +77,7 @@ export default function Employees({ session }) {
 
     if (!result.error) {
       // set some auth state
-      router.replace('/blogs')
+      router.replace('/query')
     } else {
       console.log(result.error)
       setBadAlert(true)

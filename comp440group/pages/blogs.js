@@ -123,7 +123,13 @@ function Homepage({ data, user }) {
           alignItems="center"
           style={{ paddingBottom: '2.5rem' }}
         >
-          <Grid item sx={{ marginLeft: 'auto', marginTop: 2, marginRight: 2 }}>
+          <Grid item sx={{ ml: 'auto', marginTop: 2, marginRight: 2 }}>
+            <Link href="/query">
+              <Button variant="contained">Query</Button>
+            </Link>
+          </Grid>
+
+          <Grid item sx={{ marginTop: 2, marginRight: 2 }}>
             <Link href="/createblog">
               <Button variant="contained">Create Blog</Button>
             </Link>
@@ -204,7 +210,7 @@ function Homepage({ data, user }) {
                         setData23(newState)
                       }}
                     >
-                      Comment
+                      Comments
                     </Button>
                   </>
                 )}
