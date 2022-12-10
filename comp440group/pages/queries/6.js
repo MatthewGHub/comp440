@@ -150,9 +150,9 @@ function Query({ user }) {
           </Button>
         </Grid>
 
-        {pairs.map((e) => {
+        {pairs.map((e, i) => {
           return (
-            <Box sx={{ width: 300 }}>
+            <Box sx={{ width: 300 }} key={i}>
               <Grid item sx={{ border: 1, ml: 5, mb: 1 }}>
                 {e.User_One} - {e.User_Two} - {e.Common_Hobby}
               </Grid>

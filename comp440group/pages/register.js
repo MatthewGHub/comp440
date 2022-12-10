@@ -66,12 +66,12 @@ export default function Employees({ session }) {
 
     const result = await signIn('credentials', {
       redirect: false,
-      username: registerStuff.username,
-      firstName: registerStuff.firstName,
-      lastName: registerStuff.lastName,
-      email: registerStuff.email,
-      password: registerStuff.password,
-      passwordConfirm: registerStuff.passwordConfirm,
+      username: registerStuff.username.replace(/'/g, "\\'"),
+      firstName: registerStuff.firstName.replace(/'/g, "\\'"),
+      lastName: registerStuff.lastName.replace(/'/g, "\\'"),
+      email: registerStuff.email.replace(/'/g, "\\'"),
+      password: registerStuff.password.replace(/'/g, "\\'"),
+      passwordConfirm: registerStuff.passwordConfirm.replace(/'/g, "\\'"),
       type: 'register',
     })
 

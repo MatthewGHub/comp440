@@ -21,8 +21,21 @@ async function handler(req, res) {
   }
   let result = Object.values(JSON.parse(JSON.stringify(data)))
   console.log(result)
-
-  res.status(200).json({ message: 'Success!', data: { users: result } })
+  let result23 = []
+  result.map((e) => {
+    if (result23.indexOf(e.created_by) === -1) {
+      result23.push(e.created_by)
+    }
+  })
+  // console.log('result23')
+  // console.log(result23)
+  let result55 = []
+  result23.map((e) => {
+    result55.push({ created_by: e })
+  })
+  // console.log('result55')
+  // console.log(result55)
+  res.status(200).json({ message: 'Success!', data: { users: result55 } })
 }
 
 export default handler

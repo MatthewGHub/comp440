@@ -39,6 +39,9 @@ async function handler(req, res) {
   }
 
   query = `SELECT * FROM comments WHERE posted_by='${session.user.username}' and blogid='${body.blogid}'`
+  let tst = connectDB.escape(query)
+  console.log(tst)
+
   data = await connectDB.query(query)
   connectDB.end()
 

@@ -36,8 +36,8 @@ export default function Employees({ session }) {
 
     const result = await signIn('credentials', {
       redirect: false,
-      username: loginStuff.username,
-      password: loginStuff.password,
+      uusername: loginStuff.username.replace(/'/g, "\\'"),
+      password: loginStuff.password.replace(/'/g, "\\'"),
       type: 'login',
     })
 
